@@ -1,47 +1,52 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "Tetris_Area.h"
+#include "Tetris_Area_Functions.c"
 
-#define X 40
-#define Y 60
+#define X 10
+#define Y 20
 
 int main()
 {
 
+    int latitude = 0;
+    int longitude = 0;
+    char *answer = malloc(sizeof(char));
+    char tetriminos;
     char tab[X][Y];
-    char star = '*';
-    char space = ' ';
-    int i = 0;
-    int j = 0;
+    int i, j = 0;
 
-    for (i = 0; i < X; i++)
+    if (0 == init_tetris_area(tab, &latitude, &longitude))
     {
-        for (j = 0; j < Y; j++)
+        // printf("Latitude = %d\n", latitude);
+        // printf("Longitude = %d\n", longitude);
+        printf("Area is ready to play !!\n");
+        printf("Go to play : y/n ?\n");
+        scanf("%c", answer);
+        if ('y' == *answer)
         {
-            if ((j == 0) || (j == (Y - 1)) && (i != (X - 1)))
-            {
-                tab[i][j] = star;
-            }
-            else if (i == (X - 1))
-            {
-                tab[i][j] = star;
-            }
-            else
-            {
-                tab[i][j] = space;
-            }
+            printf("Let's go!\n");
+            printf("\n");
+        }
+        else
+        {
+            printf("See you later to play.\n");
+            printf("\n");
         }
     }
 
-    for (i = 0; i < X; i++)
+    if (0 == display_tetriminos_in_tab(tab, &latitude, &longitude, &tetriminos))
     {
-        for (j = 0; j < Y; j++)
+        for (i = 0; i < X; i++)
         {
-            printf("%c", tab[i][j]);
+            for (j = 0; j < Y; j++)
+            {
+                printf("%c", tab[i][j]);
+            }
+            printf("\n");
         }
-        printf("\n");
     }
-
     return 0;
 }
